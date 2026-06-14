@@ -1,0 +1,21 @@
+{
+  "mcpServers": {
+    "docs": {
+      "command": "uv",
+      "args": [
+        "run",
+        "--directory",
+        "../../claude-with-anthropic-api/cli_project",
+        "python",
+        "mcp_server.py"
+      ]
+    },
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_TOKEN}"
+      }
+    }
+  }
+}

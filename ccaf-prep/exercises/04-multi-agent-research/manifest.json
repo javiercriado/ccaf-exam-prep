@@ -1,0 +1,19 @@
+{
+  "query": "Tell me one famous Tokyo temple.",
+  "selected_subagents": [
+    "landmark"
+  ],
+  "completed": [
+    "landmark"
+  ],
+  "errors": {},
+  "findings": {
+    "landmark": {
+      "isError": false,
+      "finding": "Senso-ji, established in 645 AD, is the oldest temple in Tokyo.",
+      "value": "645 AD",
+      "source": "web:tokyo-guide.example",
+      "date": "2024-02"
+    }
+  }
+}

@@ -1,0 +1,268 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Prompt Evaluation Report</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                line-height: 1.6;
+                margin: 0;
+                padding: 20px;
+                color: #333;
+            }
+            .header {
+                background-color: #f0f0f0;
+                padding: 20px;
+                border-radius: 5px;
+                margin-bottom: 20px;
+            }
+            .summary-stats {
+                display: flex;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+            .stat-box {
+                background-color: #fff;
+                border-radius: 5px;
+                padding: 15px;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+                flex-basis: 30%;
+                min-width: 200px;
+            }
+            .stat-value {
+                font-size: 24px;
+                font-weight: bold;
+                margin-top: 5px;
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 20px;
+            }
+            th {
+                background-color: #4a4a4a;
+                color: white;
+                text-align: left;
+                padding: 12px;
+            }
+            td {
+                padding: 10px;
+                border-bottom: 1px solid #ddd;
+                vertical-align: top;
+            }
+            tr:nth-child(even) {
+                background-color: #f9f9f9;
+            }
+            .output-cell {
+                white-space: pre-wrap;
+            }
+            .score {
+                font-weight: bold;
+                padding: 5px 10px;
+                border-radius: 3px;
+                display: inline-block;
+            }
+            .score-high {
+                background-color: #c8e6c9;
+                color: #2e7d32;
+            }
+            .score-medium {
+                background-color: #fff9c4;
+                color: #f57f17;
+            }
+            .score-low {
+                background-color: #ffcdd2;
+                color: #c62828;
+            }
+            .output {
+                overflow: auto;
+                white-space: pre-wrap;
+            }
+
+            .output pre {
+                background-color: #f5f5f5;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                padding: 10px;
+                margin: 0;
+                font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+                font-size: 14px;
+                line-height: 1.4;
+                color: #333;
+                box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+                overflow-x: auto;
+                white-space: pre-wrap; 
+                word-wrap: break-word; 
+            }
+
+            td {
+                width: 20%;
+            }
+            .score-col {
+                width: 80px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="header">
+            <h1>Prompt Evaluation Report</h1>
+            <div class="summary-stats">
+                <div class="stat-box">
+                    <div>Total Test Cases</div>
+                    <div class="stat-value">4</div>
+                </div>
+                <div class="stat-box">
+                    <div>Average Score</div>
+                    <div class="stat-value">8.8 / 10</div>
+                </div>
+                <div class="stat-box">
+                    <div>Pass Rate (≥7)</div>
+                    <div class="stat-value">100.0%</div>
+                </div>
+            </div>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Scenario</th>
+                    <th>Prompt Inputs</th>
+                    <th>Solution Criteria</th>
+                    <th>Output</th>
+                    <th>Score</th>
+                    <th>Reasoning</th>
+                </tr>
+            </thead>
+            <tbody>
+    
+            <tr>
+                <td>Testing with interdisciplinary research combining multiple fields (e.g., biomedical engineering passage with topics spanning biology, engineering, and materials science)</td>
+                <td class="prompt-inputs"><strong>content:</strong> Recent advances in tissue engineering have leveraged electrospun biodegradable polymer scaffolds to create three-dimensional matrices for bone regeneration. These nanofiber structures, composed of polycaprolactone and collagen blends, provide mechanical properties comparable to native trabecular bone while facilitating osteoblast proliferation and differentiation. The scaffolds undergo controlled degradation over 12-16 weeks, synchronized with new bone formation through enzymatic hydrolysis. Integration of hydroxyapatite nanoparticles enhanced mineralization rates by 45%, while computational fluid dynamics modeling optimized pore architecture to improve nutrient diffusion. This multidisciplinary approach combines materials science, biomedical engineering, and cellular biology to address critical challenges in orthopedic reconstruction.</td>
+                <td class="criteria">• Extracts topics spanning at least three distinct disciplines (biology, engineering, and materials science)<br>• Identifies all major subject areas discussed including specific techniques, materials, and biological processes<br>• Returns results as a JSON array of strings with no additional formatting</td>
+                <td class="output"><pre>```json
+[
+  "tissue engineering",
+  "electrospun biodegradable polymer scaffolds",
+  "bone regeneration",
+  "nanofiber structures",
+  "polycaprolactone and collagen blends",
+  "trabecular bone",
+  "osteoblast proliferation and differentiation",
+  "controlled degradation",
+  "enzymatic hydrolysis",
+  "hydroxyapatite nanoparticles",
+  "mineralization",
+  "computational fluid dynamics modeling",
+  "pore architecture",
+  "nutrient diffusion",
+  "materials science",
+  "biomedical engineering",
+  "cellular biology",
+  "orthopedic reconstruction"
+]
+```</pre></td>
+                <td class="score-col"><span class="score score-high">10</span></td>
+                <td class="reasoning">The solution fully satisfies all mandatory requirements: it contains a valid JSON array of strings, each string represents a topic without extra commentary, and the response contains only the JSON array. It also exceeds the secondary criteria by identifying topics across three distinct disciplines (materials science, biomedical engineering, and cellular biology) and capturing all major subject areas including specific techniques (electrospinning, computational fluid dynamics modeling), materials (polycaprolactone, collagen, hydroxyapatite), biological processes (osteoblast proliferation, enzymatic hydrolysis), and applications (orthopedic reconstruction). The extraction is thorough and well-organized.</td>
+            </tr>
+        
+            <tr>
+                <td>Testing with a dense, jargon-heavy passage from a specialized field (e.g., quantum physics or advanced chemistry) to evaluate handling of technical terminology and niche concepts</td>
+                <td class="prompt-inputs"><strong>content:</strong> The quantum entanglement phenomenon in topologically ordered systems exhibits remarkable robustness against local perturbations, particularly in fractional quantum Hall states where anyonic excitations obey non-abelian braiding statistics. Recent advances in topological quantum error correction leverage the intrinsic fault-tolerance of surface codes, wherein logical qubits are encoded non-locally across two-dimensional lattices of physical qubits. The interplay between topological protection and decoherence mechanisms, mediated by phonon coupling and charge noise in superconducting architectures, necessitates sophisticated dynamical decoupling protocols. Furthermore, the measurement of topological invariants such as the Chern number through Ramsey interferometry provides crucial diagnostic information for characterizing the gap structure and identifying phase transitions in these exotic quantum phases.</td>
+                <td class="criteria">• Extracts all major technical concepts and specialized terminology as distinct topics<br>• Returns output as a valid JSON array of strings<br>• Accurately identifies domain-specific terms that represent distinct research areas or concepts within quantum physics</td>
+                <td class="output"><pre>```json
+[
+  "quantum entanglement",
+  "topologically ordered systems",
+  "fractional quantum Hall states",
+  "anyonic excitations",
+  "non-abelian braiding statistics",
+  "topological quantum error correction",
+  "surface codes",
+  "logical qubits",
+  "two-dimensional lattices",
+  "topological protection",
+  "decoherence mechanisms",
+  "phonon coupling",
+  "charge noise",
+  "superconducting architectures",
+  "dynamical decoupling protocols",
+  "topological invariants",
+  "Chern number",
+  "Ramsey interferometry",
+  "gap structure",
+  "phase transitions",
+  "exotic quantum phases"
+]
+```</pre></td>
+                <td class="score-col"><span class="score score-high">9</span></td>
+                <td class="reasoning">The solution fully satisfies all mandatory requirements: it contains a valid JSON array of strings with topics only, no extra commentary, and the response is the JSON array alone. Regarding secondary criteria, the extraction demonstrates strong coverage of major technical concepts and specialized terminology. The solution identifies 21 distinct topics that accurately represent domain-specific terms in quantum physics. The topics span multiple research areas including quantum entanglement, topological systems, error correction, and measurement techniques. While some extracted phrases are compound terms (which is appropriate for technical terminology), they represent distinct concepts in the field. The solution appropriately balances granularity—avoiding over-fragmentation while capturing meaningful technical distinctions. No mandatory requirements are violated.</td>
+            </tr>
+        
+            <tr>
+                <td>Testing with a social sciences or humanities passage containing abstract, overlapping themes (e.g., philosophy or cultural studies) to assess disambiguation of related but distinct topics</td>
+                <td class="prompt-inputs"><strong>content:</strong> The concept of cultural authenticity has become increasingly contested within postcolonial theory, particularly as scholars grapple with the tension between essentialist notions of identity and the performative construction of cultural meaning. Homi Bhabha's theory of hybridity challenges the binary opposition between colonizer and colonized, suggesting instead that cultural identity emerges through mimicry and ambivalence rather than fixed categories. Simultaneously, debates surrounding cultural appropriation raise questions about power asymmetries in representation and the commodification of marginalized communities' artistic expressions. These discussions intersect with broader epistemological concerns about whose knowledge systems are legitimized within academic discourse and how decolonial methodologies might reshape scholarly practice itself.</td>
+                <td class="criteria">• Extracts distinct topics that are genuinely separate concepts (e.g., 'cultural authenticity' and 'cultural appropriation' are related but distinct)<br>• Avoids over-merging closely related themes into single topics while also avoiding excessive granularity of subtopics<br>• Returns results as a valid JSON array of strings</td>
+                <td class="output"><pre>```json
+[
+  "cultural authenticity",
+  "postcolonial theory",
+  "identity and essentialism",
+  "performative construction of cultural meaning",
+  "Homi Bhabha's theory of hybridity",
+  "colonizer and colonized binary opposition",
+  "mimicry and ambivalence",
+  "cultural identity",
+  "cultural appropriation",
+  "power asymmetries in representation",
+  "commodification of marginalized communities",
+  "artistic expressions",
+  "epistemological concerns",
+  "knowledge systems legitimization",
+  "academic discourse",
+  "decolonial methodologies",
+  "scholarly practice"
+]
+```</pre></td>
+                <td class="score-col"><span class="score score-high">8</span></td>
+                <td class="reasoning">The solution meets all mandatory requirements: it is a valid JSON array of strings containing topics from the passage with no extra commentary. Regarding secondary criteria, the extraction demonstrates strong topical coverage and appropriate granularity. The topics are genuinely distinct concepts (cultural authenticity vs. cultural appropriation, hybridity vs. essentialism, etc.). However, there are minor issues with phrase length and slight redundancy that prevent a perfect score. The solution is solid and functional but could be slightly refined for conciseness and precision.</td>
+            </tr>
+        
+            <tr>
+                <td>Testing with a short, straightforward passage on a single well-defined subject (e.g., basic biology or history) to verify the prompt correctly identifies core topics without over-extraction or under-extraction</td>
+                <td class="prompt-inputs"><strong>content:</strong> The process of photosynthesis in plants involves the conversion of light energy into chemical energy through a series of light-dependent and light-independent reactions. In the thylakoid membranes, photons are absorbed by chlorophyll molecules, initiating electron transport chains that generate adenosine triphosphate (ATP) and nicotinamide adenine dinucleotide phosphate (NADPH). These energy carriers subsequently power the Calvin cycle in the stroma, where carbon dioxide is fixed into three-phosphoglycerate and ultimately converted into glucose. This fundamental biochemical process is essential for primary productivity in terrestrial and aquatic ecosystems, serving as the foundation for nearly all food chains on Earth.</td>
+                <td class="criteria">• Extracts core topics without significant omissions (e.g., photosynthesis, light-dependent reactions, light-independent reactions, Calvin cycle, chlorophyll, ATP, NADPH, glucose synthesis, ecosystem productivity)<br>• Avoids over-extraction of minor details or overly granular subtopics that are not distinct topics themselves<br>• Returns results as a JSON array of strings with appropriate formatting</td>
+                <td class="output"><pre>```json
+[
+  "photosynthesis",
+  "light energy conversion",
+  "chemical energy",
+  "light-dependent reactions",
+  "light-independent reactions",
+  "thylakoid membranes",
+  "chlorophyll",
+  "electron transport chains",
+  "adenosine triphosphate (ATP)",
+  "nicotinamide adenine dinucleotide phosphate (NADPH)",
+  "Calvin cycle",
+  "carbon dioxide fixation",
+  "three-phosphoglycerate",
+  "glucose synthesis",
+  "primary productivity",
+  "terrestrial ecosystems",
+  "aquatic ecosystems",
+  "food chains"
+]
+```</pre></td>
+                <td class="score-col"><span class="score score-high">8</span></td>
+                <td class="reasoning">The solution meets all mandatory requirements: it is a valid JSON array of strings containing topics from the article with no extra commentary. Regarding secondary criteria, it successfully extracts all core topics without significant omissions. The over-extraction is minimal - only 2-3 entries could be considered minor details rather than distinct topics. The granularity is generally appropriate for a scholarly article context. The solution demonstrates good judgment in topic selection overall, with only minor deviations from ideal extraction.</td>
+            </tr>
+        
+            </tbody>
+        </table>
+    </body>
+    </html>
+    

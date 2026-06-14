@@ -1,0 +1,50 @@
+[
+  {
+    "prompt_inputs": {
+      "content": "Recent advances in tissue engineering have leveraged electrospun biodegradable polymer scaffolds to create three-dimensional matrices for bone regeneration. These nanofiber structures, composed of polycaprolactone and collagen blends, provide mechanical properties comparable to native trabecular bone while facilitating osteoblast proliferation and differentiation. The scaffolds undergo controlled degradation over 12-16 weeks, synchronized with new bone formation through enzymatic hydrolysis. Integration of hydroxyapatite nanoparticles enhanced mineralization rates by 45%, while computational fluid dynamics modeling optimized pore architecture to improve nutrient diffusion. This multidisciplinary approach combines materials science, biomedical engineering, and cellular biology to address critical challenges in orthopedic reconstruction."
+    },
+    "solution_criteria": [
+      "Extracts topics spanning at least three distinct disciplines (biology, engineering, and materials science)",
+      "Identifies all major subject areas discussed including specific techniques, materials, and biological processes",
+      "Returns results as a JSON array of strings with no additional formatting"
+    ],
+    "task_description": "\n    Extract topics out of a passage of text from a scholarly article into a JSON array of strings\n    ",
+    "scenario": "Testing with interdisciplinary research combining multiple fields (e.g., biomedical engineering passage with topics spanning biology, engineering, and materials science)"
+  },
+  {
+    "prompt_inputs": {
+      "content": "The quantum entanglement phenomenon in topologically ordered systems exhibits remarkable robustness against local perturbations, particularly in fractional quantum Hall states where anyonic excitations obey non-abelian braiding statistics. Recent advances in topological quantum error correction leverage the intrinsic fault-tolerance of surface codes, wherein logical qubits are encoded non-locally across two-dimensional lattices of physical qubits. The interplay between topological protection and decoherence mechanisms, mediated by phonon coupling and charge noise in superconducting architectures, necessitates sophisticated dynamical decoupling protocols. Furthermore, the measurement of topological invariants such as the Chern number through Ramsey interferometry provides crucial diagnostic information for characterizing the gap structure and identifying phase transitions in these exotic quantum phases."
+    },
+    "solution_criteria": [
+      "Extracts all major technical concepts and specialized terminology as distinct topics",
+      "Returns output as a valid JSON array of strings",
+      "Accurately identifies domain-specific terms that represent distinct research areas or concepts within quantum physics"
+    ],
+    "task_description": "\n    Extract topics out of a passage of text from a scholarly article into a JSON array of strings\n    ",
+    "scenario": "Testing with a dense, jargon-heavy passage from a specialized field (e.g., quantum physics or advanced chemistry) to evaluate handling of technical terminology and niche concepts"
+  },
+  {
+    "prompt_inputs": {
+      "content": "The concept of cultural authenticity has become increasingly contested within postcolonial theory, particularly as scholars grapple with the tension between essentialist notions of identity and the performative construction of cultural meaning. Homi Bhabha's theory of hybridity challenges the binary opposition between colonizer and colonized, suggesting instead that cultural identity emerges through mimicry and ambivalence rather than fixed categories. Simultaneously, debates surrounding cultural appropriation raise questions about power asymmetries in representation and the commodification of marginalized communities' artistic expressions. These discussions intersect with broader epistemological concerns about whose knowledge systems are legitimized within academic discourse and how decolonial methodologies might reshape scholarly practice itself."
+    },
+    "solution_criteria": [
+      "Extracts distinct topics that are genuinely separate concepts (e.g., 'cultural authenticity' and 'cultural appropriation' are related but distinct)",
+      "Avoids over-merging closely related themes into single topics while also avoiding excessive granularity of subtopics",
+      "Returns results as a valid JSON array of strings"
+    ],
+    "task_description": "\n    Extract topics out of a passage of text from a scholarly article into a JSON array of strings\n    ",
+    "scenario": "Testing with a social sciences or humanities passage containing abstract, overlapping themes (e.g., philosophy or cultural studies) to assess disambiguation of related but distinct topics"
+  },
+  {
+    "prompt_inputs": {
+      "content": "The process of photosynthesis in plants involves the conversion of light energy into chemical energy through a series of light-dependent and light-independent reactions. In the thylakoid membranes, photons are absorbed by chlorophyll molecules, initiating electron transport chains that generate adenosine triphosphate (ATP) and nicotinamide adenine dinucleotide phosphate (NADPH). These energy carriers subsequently power the Calvin cycle in the stroma, where carbon dioxide is fixed into three-phosphoglycerate and ultimately converted into glucose. This fundamental biochemical process is essential for primary productivity in terrestrial and aquatic ecosystems, serving as the foundation for nearly all food chains on Earth."
+    },
+    "solution_criteria": [
+      "Extracts core topics without significant omissions (e.g., photosynthesis, light-dependent reactions, light-independent reactions, Calvin cycle, chlorophyll, ATP, NADPH, glucose synthesis, ecosystem productivity)",
+      "Avoids over-extraction of minor details or overly granular subtopics that are not distinct topics themselves",
+      "Returns results as a JSON array of strings with appropriate formatting"
+    ],
+    "task_description": "\n    Extract topics out of a passage of text from a scholarly article into a JSON array of strings\n    ",
+    "scenario": "Testing with a short, straightforward passage on a single well-defined subject (e.g., basic biology or history) to verify the prompt correctly identifies core topics without over-extraction or under-extraction"
+  }
+]

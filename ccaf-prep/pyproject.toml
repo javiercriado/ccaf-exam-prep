@@ -1,0 +1,17 @@
+[project]
+name = "ccaf-prep"
+version = "0.1.0"
+description = "CCAF exam-prep: per-domain study notebooks + hands-on exercises (EX1-EX5)"
+readme = "STUDY_PLAN.md"
+requires-python = ">=3.10"
+dependencies = [
+    "anthropic>=0.51.0",
+    "python-dotenv>=1.1.0",
+    "ipykernel>=6.29",
+    "claude-agent-sdk>=0.2.93",
+]
+
+[dependency-groups]
+dev = [
+    "nbstripout>=0.9.1",
+]
