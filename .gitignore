@@ -1,0 +1,33 @@
+# Python / virtualenv
+.venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# Secrets — never commit real keys; share .env.example instead
+.env
+**/.env
+
+# OS cruft
+.DS_Store
+**/.DS_Store
+
+# Personal study progress & private notes (keep your own; don't publish)
+*.personal.ipynb
+personal/
+
+# Claude Code local settings (machine-specific paths; never publish)
+.claude/settings.local.json
+**/settings.local.json
+
+# Personal / superseded planning docs (kept locally, not published)
+archive/
+
+# Prisma generated client (regenerable via `npm run setup`; embeds absolute paths)
+claude-with-anthropic-api/uigen/src/generated/
+
+# Official Anthropic material — not redistributed; download from Anthropic (see README).
+# Ignore everything under reference/ (guide text, course catalog) except its README.
+ccaf-prep/reference/*
+!ccaf-prep/reference/README.md
+*Foundations*Exam*Guide*.pdf

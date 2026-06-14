@@ -1,0 +1,21 @@
+{
+  "type": "object",
+  "properties": {
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "severity": {"type": "string", "enum": ["low", "medium", "high"]},
+          "file": {"type": "string"},
+          "line": {"type": "integer"},
+          "category": {"type": "string",
+                       "enum": ["security", "correctness", "resource-leak", "cross-file"]},
+          "message": {"type": "string"}
+        },
+        "required": ["severity", "file", "line", "category", "message"]
+      }
+    }
+  },
+  "required": ["findings"]
+}
