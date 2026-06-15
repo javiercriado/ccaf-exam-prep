@@ -119,6 +119,31 @@ covered — not pure exam weight:
    tick coverage as you finish each domain, then do the scenario-grouped mock at the end.
 4. **Finally**, sit the official **Practice Exam** (Skilljar) under timed conditions.
 
+### Which layer: raw Messages API vs Agent SDK (and why)
+
+The exam tests **architecture concepts, not one SDK's syntax** — so the notebooks use
+*whichever layer the concept actually lives at*, not a global preference:
+
+- **Raw Messages API** (`client.messages.create`) when the concept **is a Messages-API primitive
+  the SDK hides** and you need to *see* it: agentic loop / `stop_reason` (D1.1),
+  `tool_use`/`tool_result`, tool descriptions & `tool_choice` (D2.1/2.3), structured errors /
+  `isError` (D2.2), structured output via tool_use + JSON schema (D4.3/4.4), Batch (D4.5),
+  single-turn decisions (D5.1/5.2/5.5/5.6).
+  *(Raw-API tool use has two halves: Claude returns a `tool_use` block — that's "calling" the
+  tool — and **your** code executes it and returns a `tool_result`. The API never runs your
+  function; that loop is the protocol.)*
+- **Agent SDK** (`query()` + `Task` / `AgentDefinition`) when the concept **is a runtime feature**
+  — doing it raw would be faking it: coordinator + subagents + `Task` (D1.2/1.3),
+  `PreToolUse`/`PostToolUse` hooks and deterministic gates (D1.4/1.5), sessions / `fork_session`
+  (D1.7), multi-agent error propagation & delegation (D5.3/5.4).
+- **Claude Code (config/CLI)** when it's **configuration, not code**: `CLAUDE.md`,
+  `.claude/commands/`, `.claude/rules/`, plan mode, headless `-p` (D2.4, all of D3).
+
+Rule of thumb: **Agent SDK / Claude Code is the predominant architecture *vocabulary*** (most of
+D1, D3, and the multi-agent parts of D5); the **raw API exposes the primitive underneath** when
+the concept *is* that primitive. Each notebook's setup cell states which layer it uses and why;
+full detail in [`ccaf-prep/notebooks/README.md`](ccaf-prep/notebooks/README.md).
+
 Keep [`ccaf-prep/MAPPING.md`](ccaf-prep/MAPPING.md) open as your index. The full rationale is
 in [`ccaf-prep/STUDY_PLAN.md`](ccaf-prep/STUDY_PLAN.md).
 

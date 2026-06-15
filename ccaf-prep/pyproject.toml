@@ -7,7 +7,7 @@ requires-python = ">=3.10"
 dependencies = [
     "anthropic>=0.51.0",
     "python-dotenv>=1.1.0",
-    "ipykernel>=6.29",
+    "ipykernel>=6.29,<7",  # 7.x DISPOSEs the controller in the VS Code Jupyter ext; 6.x is the stable combo
     "claude-agent-sdk>=0.2.93",
 ]
 
