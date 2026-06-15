@@ -171,6 +171,11 @@ them destructively would wipe that progress.
   that may still spawn if omitted — list it as the rule says, but don't claim it hard-blocks.
 - Markdown headers per task statement (`## N.M · <title>`) so VS Code's Outline panel
   navigates the file.
+- **Write everything in English.** All notebook content — markdown, code, comments, glossary
+  notes, self-checks — is authored in English (the exam and courses are in English; see the
+  repo-root `CLAUDE.md`). The *only* Spanish file in the repo is `README.es.md` (the translated
+  convenience copy of the root `README.md`); never add Spanish to a notebook or doc. If a Spanish
+  gloss is requested, translate it to English instead.
 
 ## Step 3 — Verify before declaring done (mandatory)
 

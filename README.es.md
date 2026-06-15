@@ -122,6 +122,32 @@ cubren sus dominios — no por peso del examen:
    por escenario.
 4. **Por último**, rinde el **Examen de Práctica** oficial (Skilljar) con tiempo cronometrado.
 
+### Qué capa: Messages API directa vs Agent SDK (y por qué)
+
+El examen evalúa **conceptos de arquitectura, no la sintaxis de un SDK**. Por eso los notebooks
+usan *la capa donde el concepto realmente vive* — es la regla, no una preferencia global:
+
+- **Messages API directa** (`client.messages.create`) cuando el concepto **es un primitivo del
+  API que el SDK esconde** y hay que *verlo*: el loop agéntico / `stop_reason` (D1.1),
+  `tool_use`/`tool_result`, descripciones de tools y `tool_choice` (D2.1/2.3), errores
+  estructurados / `isError` (D2.2), structured output vía tool_use + JSON schema (D4.3/4.4),
+  Batch (D4.5), decisiones single-turn (D5.1/5.2/5.5/5.6).
+  *(El tool use en raw API tiene dos mitades: Claude devuelve un bloque `tool_use` — eso es
+  "llamar" la tool — y **tu** código la ejecuta y devuelve un `tool_result`. El API nunca corre
+  tu función; ese loop es el protocolo.)*
+- **Agent SDK** (`query()` + `Task` / `AgentDefinition`) cuando el concepto **es una feature del
+  runtime** — hacerlo en raw sería falso: coordinator + subagentes + `Task` (D1.2/1.3), hooks
+  `PreToolUse`/`PostToolUse` y gates deterministas (D1.4/1.5), sesiones / `fork_session` (D1.7),
+  propagación de errores y delegación multi-agente (D5.3/5.4).
+- **Claude Code (config/CLI)** cuando es **configuración, no código**: `CLAUDE.md`,
+  `.claude/commands/`, `.claude/rules/`, plan mode, headless `-p` (D2.4, todo D3).
+
+Regla práctica: el **Agent SDK / Claude Code es el *vocabulario* predominante** de la
+arquitectura (casi todo D1, D3 y la parte multi-agente de D5); la **Messages API directa expone
+el primitivo de abajo** cuando el concepto *es* ese primitivo. La celda de setup de cada notebook
+dice qué capa usa y por qué; el detalle completo está en
+[`ccaf-prep/notebooks/README.md`](ccaf-prep/notebooks/README.md).
+
 Mantén [`ccaf-prep/MAPPING.md`](ccaf-prep/MAPPING.md) abierto como índice. La justificación
 completa está en [`ccaf-prep/STUDY_PLAN.md`](ccaf-prep/STUDY_PLAN.md).
 
