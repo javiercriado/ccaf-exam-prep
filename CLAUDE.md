@@ -34,6 +34,6 @@ Claude API calls** (Messages API or Claude Agent SDK), mapped 1:1 to the officia
 - Full authoring standard (6-part section anatomy, verbatim-quote rule, verify-before-done): **`.claude/skills/ccaf-notebook/SKILL.md`** — don't duplicate it here.
 
 ## Status (verify against `README.md`'s table before relying)
-- Notebooks: **D1 ✅, D2 ✅** hand-validated; **D5 🔧** in progress; **D3, D4 ⏳** not built.
+- Notebooks: **D1 ✅, D2 ✅, D5 ✅** hand-validated; **D3, D4 ⏳** not built.
 - Exercises 01–05: **🧪 built and runnable, not yet hand-reviewed** (the next pass after D5).
 - Study/build order is dependency-driven: **D1 → D2 → D5 → D3 → D4**.
