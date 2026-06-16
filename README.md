@@ -41,7 +41,7 @@ against the official guide before you rely on it.
 |---|:--:|---|---|:--:|
 | D1 · Agentic Architecture & Orchestration | ✅ | | 01 · support-agent | 🧪 |
 | D2 · Tool Design & MCP Integration | ✅ | | 02 · claude-code-team | 🧪 |
-| D5 · Context Management & Reliability | 🔧 | | 03 · extraction-pipeline | 🧪 |
+| D5 · Context Management & Reliability | ✅ | | 03 · extraction-pipeline | 🧪 |
 | D3 · Claude Code Configuration & Workflows | ⏳ | | 04 · multi-agent-research | 🧪 |
 | D4 · Prompt Engineering & Structured Output | ⏳ | | 05 · cicd-review | 🧪 |
 
@@ -80,7 +80,7 @@ ccaf-prep/
   notebooks/      one notebook per domain + the mock exam
     D1_agentic_loops.ipynb          ✅  D1 · Agentic Architecture & Orchestration (27%)
     D2_tool_design_mcp.ipynb        ✅  D2 · Tool Design & MCP Integration (18%)
-    D5_context_reliability.ipynb    🔧  D5 · Context Management & Reliability (15%)
+    D5_context_reliability.ipynb    ✅  D5 · Context Management & Reliability (15%)
     D3_*.ipynb                      ⏳  D3 · Claude Code Configuration & Workflows (20%)
     D4_*.ipynb                      ⏳  D4 · Prompt Engineering & Structured Output (20%)
     mock_exam_and_review.ipynb      coverage checklist + the 12 sample Qs by scenario
