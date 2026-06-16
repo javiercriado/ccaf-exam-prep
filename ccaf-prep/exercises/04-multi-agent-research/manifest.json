@@ -3,6 +3,10 @@
   "selected_subagents": [
     "landmark"
   ],
+  "status": "complete",
+  "phase_status": {
+    "landmark": "complete"
+  },
   "completed": [
     "landmark"
   ],
@@ -10,7 +14,7 @@
   "findings": {
     "landmark": {
       "isError": false,
-      "finding": "Senso-ji, established in 645 AD, is the oldest temple in Tokyo.",
+      "finding": "Senso-ji, founded in 645 AD, is Tokyo's oldest temple.",
       "value": "645 AD",
       "source": "web:tokyo-guide.example",
       "date": "2024-02"

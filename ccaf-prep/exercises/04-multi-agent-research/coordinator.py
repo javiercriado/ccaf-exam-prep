@@ -158,12 +158,17 @@ def select_subagents(query):
     return chosen or ["websearch"]                    # default: a single source type for simple asks
 
 
-def write_manifest(query, selected, findings, errors):
-    """D5.4 — scratchpad/state manifest: persist progress so a crash could RESUME without
-    re-exploring. The coordinator would load this on restart and inject it into prompts."""
+def write_manifest(query, selected, phase_status, findings, errors, status="in_progress"):
+    """D5.4 — scratchpad/state manifest: persist progress so a crash can RESUME without
+    re-exploring. Written INCREMENTALLY (after each subagent, and each marked 'in_progress'
+    BEFORE it runs) so a mid-exploration crash leaves the last good checkpoint on disk, then
+    ONCE MORE at the end (status='complete'). The coordinator loads this on restart and injects
+    it into prompts — and skips any subagent already marked 'complete'."""
     manifest = {
         "query": query,
         "selected_subagents": selected,
+        "status": status,                  # 'in_progress' until the whole run finishes -> 'complete'
+        "phase_status": phase_status,       # per-subagent: pending | in_progress | complete | error
         "completed": [k for k, v in findings.items() if not v.get("isError")],
         "errors": {k: v for k, v in errors.items()},
         "findings": findings,
@@ -190,22 +195,31 @@ def coordinate(query):
           f"(scoped tools: {[SUBAGENT_TOOLS[s] for s in selected]})")     # <- D2.3 visible
 
     findings, errors = {}, {}
+    # D5.4 — every phase starts 'pending'; we checkpoint the manifest AFTER each one (and mark a
+    # phase 'in_progress' BEFORE it runs) so a crash mid-exploration leaves the last good state.
+    phase_status = {name: "pending" for name in selected}
+    write_manifest(query, selected, phase_status, findings, errors)   # initial checkpoint (all pending)
     for name in selected:                              # the hub routes to each spoke  # D1.2
+        phase_status[name] = "in_progress"
+        write_manifest(query, selected, phase_status, findings, errors)  # crash here -> 'in_progress' on disk
         role_sys, tool, args = PLAN[name]
         result = research_subagent(name, role_sys, tool, args)
         if result.get("isError"):
             # D5.3 — surface the STRUCTURED error; do NOT kill the workflow, keep going.
             errors[name] = result
+            phase_status[name] = "error"
             print(f"[coordinator <- {name}]  STRUCTURED ERROR "
                   f"(failure_type={result['failure_type']}): attempted={result['attempted_query']!r}"
                   f"  alt={result['suggested_alternative']!r}")
         else:
             findings[name] = result
+            phase_status[name] = "complete"
             print(f"[coordinator <- {name}]  {result['finding']}  "
                   f"[src={result['source']} | {result['date']}]")
+        write_manifest(query, selected, phase_status, findings, errors)  # checkpoint AFTER each phase
 
-    # --- D5.4 manifest: persist progress for crash recovery --------------------------------
-    write_manifest(query, selected, findings, errors)
+    # --- D5.4 final manifest: status='complete' (both incremental AND terminal) -------------
+    write_manifest(query, selected, phase_status, findings, errors, status="complete")
     print(f"[coordinator] wrote manifest -> {MANIFEST.name} "
           f"(completed={list(findings)}, errors={list(errors)})")
 
