@@ -41,12 +41,12 @@
 
 | Task | What it really means | Concrete anchor | Sample Q | Distractor pattern |
 |---|---|---|---|---|
-| 3.1 CLAUDE.md hierarchy | user / project / directory; user-level NOT shared via VCS; `@import`; `.claude/rules/` | `EX2/CLAUDE.md`; `queries/CLAUDE.md` | — | user-level for team config |
-| 3.2 Slash commands & skills | `.claude/commands/` (project, VCS) vs `~/.claude/commands/`; SKILL.md frontmatter `context: fork`, `allowed-tools` | `EX2/.claude/commands/`, `EX2/.claude/skills/` | **Q4** (`.claude/commands/`) | #4 `.claude/config.json` array |
-| 3.3 Path-specific rules | `.claude/rules/` YAML `paths:` globs; load only on matching files | `EX2/.claude/rules/*.md` | **Q6** (globs for tests spread everywhere) | subdir CLAUDE.md for spread files |
-| 3.4 Plan vs direct | Plan = large/architectural/multi-approach; direct = single well-scoped change; Explore subagent | `EX2` plan-mode experiments | **Q5** (monolith→microservices = plan mode) | direct-then-switch-if-complex |
-| 3.5 Iterative refinement | Concrete I/O examples; test-driven iteration; interview pattern; batch interacting fixes | `EX5` test-first; `app_starter/tests` | — | prose over examples |
-| 3.6 CI/CD integration | `-p`/`--print`; `--output-format json` + `--json-schema`; CLAUDE.md context; independent review instance | `EX5` (`claude -p ... --json-schema`) | **Q10** (`-p` flag) | #4 `CLAUDE_HEADLESS`, `--batch` |
+| 3.1 CLAUDE.md hierarchy | user / project / directory; user-level NOT shared via VCS; `@import`; `.claude/rules/` | **`notebooks/D3_claude_code_config.ipynb` §3.1** (resolves real hierarchy + `@import`); `EX2/CLAUDE.md:1-24`; `EX2/team-conventions.md`; `queries/CLAUDE.md:65-67` | — | user-level for team config |
+| 3.2 Slash commands & skills | `.claude/commands/` (project, VCS) vs `~/.claude/commands/`; SKILL.md frontmatter `context: fork`, `allowed-tools` | **`notebooks/D3_claude_code_config.ipynb` §3.2** (parses real command + skill frontmatter); `EX2/.claude/commands/review-pr.md:1-5`, `EX2/.claude/skills/changelog/SKILL.md:1-7` | **Q4** (`.claude/commands/`) | #4 `.claude/config.json` array |
+| 3.3 Path-specific rules | `.claude/rules/` YAML `paths:` globs; load only on matching files | **`notebooks/D3_claude_code_config.ipynb` §3.3** (real globs + `full_match` simulation); `EX2/.claude/rules/tests.md:1-9` | **Q6** (globs for tests spread everywhere) | subdir CLAUDE.md for spread files |
+| 3.4 Plan vs direct | Plan = large/architectural/multi-approach; direct = single well-scoped change; Explore subagent | **`notebooks/D3_claude_code_config.ipynb` §3.4** (real call: Claude classifies tasks plan-vs-direct); `EX2/README.md:48-52` | **Q5** (monolith→microservices = plan mode) | direct-then-switch-if-complex |
+| 3.5 Iterative refinement | Concrete I/O examples; test-driven iteration; interview pattern; batch interacting fixes | **`notebooks/D3_claude_code_config.ipynb` §3.5** (real A/B: prose vs 2 examples); `EX5/review.py:76-83`; `app_starter/tests/test_document.py` | — | prose over examples |
+| 3.6 CI/CD integration | `-p`/`--print`; `--output-format json` + `--json-schema`; CLAUDE.md context; independent review instance | **`notebooks/D3_claude_code_config.ipynb` §3.6** (real flags + forced structured findings); `EX5/ci_review.sh:11-27`; `EX5/review.py:86-111,120-137` | **Q10** (`-p` flag) | #4 `CLAUDE_HEADLESS`, `--batch` |
 
 ## Domain 4 — Prompt Engineering & Structured Output (20%)
 

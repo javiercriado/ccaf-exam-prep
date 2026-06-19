@@ -82,6 +82,9 @@ All 6 scenarios covered.
 
 ## The 5 distractor patterns (the meta-skill)
 
+> For a single question to ask when two options both look right, see
+> [`DISTRACTOR_HEURISTIC.md`](./DISTRACTOR_HEURISTIC.md) (native/deterministic vs. moving parts).
+
 1. **Over-engineered solution** — ML classifier / new infra when a prompt or description fix suffices.
 2. **Prompt when determinism is required** — use a hook / programmatic gate, not an instruction.
 3. **Blaming the wrong component** — especially in multi-agent (the coordinator's decomposition, not the subagents).
