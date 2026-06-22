@@ -117,6 +117,7 @@ tight and links cleanly; this table is the front door. Sorted by the domain the 
 | Multi-concern: same surface, two root causes (speed → restructure, accuracy → few-shot) | D1.4 | this file, *§ One surface, two root causes* |
 | Few-shot design (targeted · contrastive · matched to the gap) | D2 / D4 | this file, *§ Few-shot design* |
 | Self-critique / evaluator-optimizer (the cheap→rigorous spectrum) | D1 | [`SELF_CRITIQUE.md`](./SELF_CRITIQUE.md) |
+| Graceful degradation / error propagation (preserve value + annotate gaps; retry at the right boundary) | D1 / D5 | [`GRACEFUL_DEGRADATION.md`](./GRACEFUL_DEGRADATION.md) |
 
 > **Placement rule** (keeps these from scattering): a write-up that explains a *specific exercise's
 > behavior* lives in that exercise's folder (e.g. `PARALLEL_TOOL_USE.md` next to Exercise 1's Case 1);
