@@ -8,9 +8,21 @@ Env:  ANTHROPIC_API_KEY (+ optional CLAUDE_MODEL) — copy ccaf-prep/.env.exampl
       to ccaf-prep/.env and add your key; it is loaded robustly below (the env
       is NOT assumed to be exported into the shell).
 
-Toggles that drive the learning:
-  - FEW_SHOT  -> flip False to watch consistency degrade on the AMBIGUOUS input
-                 (the messy "two-fifty" amount + missing account id). D4.2.
+Toggles that drive the learning (defaults shown; flip ONE per study step, reset between):
+  - FEW_SHOT       = True  -> flip False to watch judgment/confidence degrade on the
+                             AMBIGUOUS input. MODEL-DEPENDENT: on this toy the wobble is
+                             mild (observed aggregate 0.72-0.75 vs 0.77). D4.2.
+  - DEMO_RETRY     = True  -> corrupts attempt 0's date so the D4.4 retry path fires every
+                             run. DETERMINISTIC: flip False and attempt 0 already passes (no
+                             retry). D4.4.
+  - CONF_THRESHOLD = 0.70  -> a numeric knob, not a baseline boolean. DETERMINISTIC arithmetic:
+                             raise it (0.99) and every field routes to human review; drop it
+                             to 0.0 and even the 0.0-confidence account_id auto-accepts. D5.5.
+
+Teaching simplification: the few-shot examples (FEW_SHOT_TURNS) are CANNED demonstrations and
+MESSY_INPUT is one hardcoded toy support message — both stand in for a real labelled example set
+and a real document stream. The MECHANISMS (forced tool_use, validate-retry, confidence routing)
+are real; the data is a fixture so one cheap call teaches each concept.
 
 What each printed block proves (read alongside README.md):
   - "FORCED tool_use" block  -> D4.3 structured output is SYNTACTICALLY guaranteed.
