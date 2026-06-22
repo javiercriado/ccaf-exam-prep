@@ -15,6 +15,18 @@ The whole exercise is one toggle:
                         context window"). Watch the cross-file bug get diluted/missed.
                         That is the sample-Q12 anti-pattern.  (D1.6/D4.6 distractor #1)
 
+MECHANISM (deterministic): DECOMPOSE=False really does collapse the per-file + integration passes
+into one prompt. OUTCOME (model-dependent): whether the cross-file bug is then missed. On THIS toy +
+claude-haiku-4-5 it reproduced strongly — observed 3/3 runs returned ZERO findings in monolith mode
+(the cross-file bug AND both local bugs got diluted), vs the decomposed run catching all of them.
+Re-verify on your model; if it ever catches the bug in monolith mode, the principle still holds:
+decompose to GUARANTEE attention per file, not because one big prompt always fails.
+
+Teaching simplification: PAYMENTS_PY / LEDGER_PY are TOY files with DELIBERATELY PLANTED bugs (a
+resource leak, an off-by-one, and a cross-file contract mismatch) — not real production code. The
+review pipeline (per-file passes, integration pass, forced structured output) is real; the "codebase"
+is a fixture sized so one cheap pass shows decomposition catching what the monolith dilutes.
+
 Other points made observable below:
   - D4.1  EXPLICIT categorical criteria (security/correctness/resource-leak) are passed,
           NOT "be conservative / find problems" (which causes false positives that erode trust).

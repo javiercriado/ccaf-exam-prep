@@ -12,11 +12,25 @@ exam tests here — D5.3 structured error propagation, D5.4 manifest/crash-recov
 + conflict annotation — plus the anti-pattern toggles, deterministically and cheaply without
 spawning real subagents.
 
-Toggles that drive the learning (flip them and rerun):
-  - DYNAMIC_SELECTION = True  -> coordinator inspects the query and selects WHICH subagents
-                                 to run. Flip False = always-run-full-pipeline anti-pattern (D1.2).
+Toggles that drive the learning (defaults shown; flip ONE per study step, reset between):
+  - DYNAMIC_SELECTION = True  -> coordinator inspects the query and selects WHICH subagents to run.
+                                 Flip False = always-run-full-pipeline anti-pattern (D1.2).
+                                 MECHANISM is DETERMINISTIC: the simple query runs 3 subagents
+                                 instead of 1, the SAME way every run.
   - PASS_CONTEXT     = True   -> prior findings are passed IN the synthesis prompt as STRUCTURED,
                                  attributed data. Flip False = synthesis subagent is blind (D1.3).
+                                 MECHANISM is DETERMINISTIC (no findings reach the prompt); whether
+                                 the blind output looks visibly worse is model-dependent — here it
+                                 plainly does (the subagent asks for the info it was never given).
+
+Teaching simplification (mirror EX1's identity note — the MECHANISM is real, the DATA is fake):
+  - verify_fact() does NOT fact-check anything: it returns a self-asserted {"verified": True,
+    "note": "checksum ok (toy)"}. It exists to show a SCOPED cross-role tool (D2.3), not real
+    verification — never treat a tool's own "verified: true" as proof.
+  - web_search / load_document / landmark_lookup return HARDCODED records from _FACTS, not live
+    sources. One figure is DELIBERATELY conflicting (web 37.0M vs doc 41.0M, different dates) so the
+    D5.6 provenance + conflict-annotation path has something to annotate. The hub-and-spoke,
+    isolation, error propagation and manifest logic are real; the "facts" are a fixture.
 
 Watch for these observable lines: ISOLATION PROOF, the [coordinator] selection line, the
 synthesis output WITH vs WITHOUT context, the STRUCTURED ERROR, and the PROVENANCE report
@@ -101,6 +115,8 @@ def landmark_lookup(query=None):
 def verify_fact(claim=None):
     # scoped cross-role tool given ONLY to synthesis for the high-frequency verify need (D2.3),
     # instead of handing synthesis the full web_search/load_document toolset.
+    # TEACHING SIMPLIFICATION: this does NOT actually verify — it self-asserts verified=True. The
+    # point is the SCOPING (D2.3), not the check. Real verification would re-query an independent source.
     return {"isError": False, "claim": claim, "verified": True, "note": "checksum ok (toy)"}
 
 

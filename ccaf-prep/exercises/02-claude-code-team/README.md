@@ -7,6 +7,33 @@ D2 (`.mcp.json`, built-in tools), D1.7 (sessions).
 > This is a **configuration** exercise — the "code" is the set of `.claude/` files, not a
 > Python script. The runnable part is the **commands to try** in a real Claude Code session.
 
+## Study runbook (do this in order)
+
+There are **no toggles and no script output** here, so there is no `SAMPLE_RUNS.md` and no
+model-dependence caveat — each step just opens one config artifact and checks what it teaches.
+Read the **Expected result** column *before* you open the file.
+
+> **Where to run this.** Open Claude Code in a repo that contains *this* `.claude/` folder —
+> e.g. `cd ccaf-prep/exercises/02-claude-code-team` from the repo root and launch `claude` there —
+> so `/memory`, `/review-pr`, and `.mcp.json` resolve against the files below. (There is nothing to
+> `uv run`; the artifacts are config, not Python.)
+
+| Step | What to do | Expected result — what it teaches | File(s) |
+|---|---|---|---|
+| 1 | Read `CLAUDE.md` and its `@import ./team-conventions.md`. Run `/memory`. | `/memory` lists the **project** `CLAUDE.md` as loaded (plus a user `~/.claude/CLAUDE.md` if you have one); the `@import` folds team conventions in so `CLAUDE.md` stays a thin index. The user/project/directory **hierarchy** + `@import` modularity. (**D3.1**) | `CLAUDE.md`, `team-conventions.md` |
+| 2 | Read `.claude/commands/review-pr.md`. Run `/review-pr` (or `/review-pr develop`). | The command runs *because* it's a markdown file in `.claude/commands/` (committed, shared via VCS) — **not** a `config.json` array. Command definition + project (`.claude/`) vs personal (`~/.claude/`) scope. (**D3.2**, Q4) | `.claude/commands/review-pr.md` |
+| 3 | Read `.claude/rules/tests.md` frontmatter (the `paths:` globs). | The rule loads **only** when Claude touches a matching `*.test.*` / `tests/**` file, wherever in the tree it lives — the advantage over a subdirectory `CLAUDE.md` when the files are spread out. Path-scoped rules by file **type**. (**D3.3**, Q6) | `.claude/rules/tests.md` |
+| 4 | Read `.claude/skills/changelog/SKILL.md` frontmatter (`allowed-tools`, `context: fork`). | A skill is invoked **on demand** (vs `CLAUDE.md`, always-loaded); `allowed-tools` = least privilege, `context: fork` keeps the noisy `git log` walk out of the main session. Skill frontmatter. (**D3.2**) | `.claude/skills/changelog/SKILL.md` |
+| 5 | Read `.mcp.json`; note the `${GITHUB_TOKEN}` placeholder. | Project `.mcp.json` declares MCP servers as `command`+`args`; the token is expanded from the **environment at launch**, never committed. Project-scoped MCP + `${ENV}` expansion. (**D2.4**) | `.mcp.json` |
+| 6 | Read the **plan-vs-direct** and **sessions** notes further down this README. | Choose plan mode up front for architectural / multi-approach work (not direct-then-switch); resume a **named** session with `--resume`, `fork_session` to branch A vs B. (**D3.4** Q5, **D1.7**) | this README ↓ |
+| 7 | Do **20–30 D3 bank questions** (+ a few D2.4/2.5). | A miss tells you which config **distractor** still fools you — re-read that artifact's header comment, don't just re-skim. | — |
+
+> **Teaching simplification — the `.mcp.json` secret is not real.** `${GITHUB_TOKEN}` is a
+> placeholder, and the `docs` server points at the sibling course's `mcp_server.py`; neither is a
+> live credential. The point being taught is the **`${ENV}` expansion pattern** (secrets stay in the
+> environment, only the *reference* is committed) — not that this exact file connects to GitHub. JSON
+> has no comments, so this note lives only here, not in the file.
+
 ## What's here
 | File | Task Statement |
 |---|---|
