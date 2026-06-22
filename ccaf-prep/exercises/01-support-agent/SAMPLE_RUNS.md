@@ -49,6 +49,7 @@ AGENT: Perfect! Your refund has been processed... Refund ID: R-12345 | Amount: $
 
 - 🎯 **`turn 0` requests `get_customer` AND `lookup_order` in one response = native parallel tool use.**
   This is the correct answer to the "reduce round-trips" trap (composite tools are the distractor).
+  How/why it works (default-on, round-trip math, the loop that handles it): [`PARALLEL_TOOL_USE.md`](./PARALLEL_TOOL_USE.md).
 - `process_refund` of $240 (< $500) is allowed by the gate. (D1.4)
 - `tool_use → tool_use → end_turn` = the agentic loop terminating naturally. (**D1.1**)
 

@@ -32,6 +32,16 @@ Claude API calls** (Messages API or Claude Agent SDK), mapped 1:1 to the officia
 - **Never `permission_mode="bypassPermissions"`** — use `"default"` + explicit `allowed_tools`.
 - **Keep calls cheap**: Haiku, small `max_tokens`, tiny toy fixtures, one call per concept.
 - Full authoring standard (6-part section anatomy, verbatim-quote rule, verify-before-done): **`.claude/skills/ccaf-notebook/SKILL.md`** — don't duplicate it here.
+- **Practice-exam clarifications → two tiers, kept apart.** When a tricky exam question yields a lesson, split it:
+  - **Shareable *concept*** (the principle/mechanism, **no answer keys**) → tracked repo. Placement rule:
+    explains a *specific exercise's behavior* → that exercise's folder (e.g.
+    `exercises/01-support-agent/PARALLEL_TOOL_USE.md`); a *general pattern* not tied to an exercise →
+    `ccaf-prep/` root (e.g. `SELF_CRITIQUE.md`); a *short discriminator* → inline in `DISTRACTOR_HEURISTIC.md`.
+  - **Private *worked example*** (verbatim exam question + the user's answer + screenshot ref) →
+    git-ignored `personal/` **only** — exam content is not redistributed. Screenshots live in git-ignored
+    `archive/screenshots/`.
+  - **Index:** the *Concept deep-dives* table in `DISTRACTOR_HEURISTIC.md` is the front door — register every
+    new shareable concept doc there (sorted by domain). Don't consolidate into one big file or file per domain.
 
 ## Status (verify against `README.md`'s table before relying)
 - Notebooks: **D1 ✅, D2 ✅, D5 ✅** hand-validated; **D3 🧪** built/generated, not yet hand-reviewed; **D4 ⏳** not built.
