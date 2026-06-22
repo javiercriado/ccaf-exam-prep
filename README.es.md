@@ -39,14 +39,14 @@ en revisión; verifícalo contra la guía oficial antes de confiar en ello.
 
 | Notebook de dominio | Estado | | Ejercicio práctico | Estado |
 |---|:--:|---|---|:--:|
-| D1 · Agentic Architecture & Orchestration | ✅ | | 01 · support-agent | 🧪 |
+| D1 · Agentic Architecture & Orchestration | ✅ | | 01 · support-agent | ✅ |
 | D2 · Tool Design & MCP Integration | ✅ | | 02 · claude-code-team | 🧪 |
 | D5 · Context Management & Reliability | ✅ | | 03 · extraction-pipeline | 🧪 |
 | D3 · Claude Code Configuration & Workflows | 🧪 | | 04 · multi-agent-research | 🧪 |
 | D4 · Prompt Engineering & Structured Output | ⏳ | | 05 · cicd-review | 🧪 |
 
-(Los ejercicios hoy corren y son portables, pero aún no les hago mi pase de revisión/ajuste
-manual — es el siguiente paso después de D5.)
+(El ejercicio 01 ya pasó mi revisión/ajuste manual; los 02–05 hoy corren y son portables pero
+aún no tienen revisión manual.)
 
 ## Empieza aquí — prerrequisitos (hazlos primero)
 

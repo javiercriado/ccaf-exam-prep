@@ -39,14 +39,14 @@ against the official guide before you rely on it.
 
 | Domain notebook | Status | | Hands-on exercise | Status |
 |---|:--:|---|---|:--:|
-| D1 · Agentic Architecture & Orchestration | ✅ | | 01 · support-agent | 🧪 |
+| D1 · Agentic Architecture & Orchestration | ✅ | | 01 · support-agent | ✅ |
 | D2 · Tool Design & MCP Integration | ✅ | | 02 · claude-code-team | 🧪 |
 | D5 · Context Management & Reliability | ✅ | | 03 · extraction-pipeline | 🧪 |
 | D3 · Claude Code Configuration & Workflows | 🧪 | | 04 · multi-agent-research | 🧪 |
 | D4 · Prompt Engineering & Structured Output | ⏳ | | 05 · cicd-review | 🧪 |
 
-(Exercises currently run and are portable, but I haven't done my hand-review/tuning pass on
-them yet — that's the next step after D5.)
+(Exercise 01 has had my hand-review/tuning pass; 02–05 currently run and are portable but
+haven't been hand-reviewed yet.)
 
 ## Start here — prerequisites (do these first)
 
