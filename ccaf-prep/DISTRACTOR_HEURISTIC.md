@@ -103,6 +103,26 @@ failing" can mean two different things, and few-shot answers only one of them:
 Ask *"is it failing on speed or on correctness?"* first — the words "multi-concern" alone don't tell
 you, and the wrong reading picks few-shot when you needed to restructure (or vice versa).
 
+## Compound (half-true) distractors — read every clause
+
+Some distractors weld a **true** fact to a **false or over-claimed** clause. You recognize the true
+half and accept the whole — that's the trap. Defense:
+
+- **Split each option into its clauses and check each.** A distractor is wrong if *any* clause is false
+  or misattributed. The correct option is true in *every* clause **and** names the *primary* reason — not
+  a true-but-tangential side fact.
+- **Absolutes are tells.** "*only* X can…", "Y *cannot* support…", "*requires*…", "always / never" assert
+  an exclusivity. Verify it's real — usually the capability exists elsewhere too, so the exclusivity is
+  the lie bolted onto a true premise.
+- **"True, but is it the *main* reason?"** A real-but-secondary benefit presented as *the* advantage is a
+  misattribution (correlation-vs-causation flavor). Ask whether it's the property you're actually buying
+  or just a true footnote.
+
+> Worked instance: a multi-agent "why centralize communication?" question where each wrong option states
+> a true fact (subagents have isolated memory; retry is possible; batching exists) bolted to a false
+> exclusivity or a wrong "main advantage." Only the option true in *every* clause — and naming the real
+> primary benefit — wins. See [`HUB_AND_SPOKE.md`](./HUB_AND_SPOKE.md).
+
 ---
 
 ## Concept deep-dives (index)
@@ -118,6 +138,10 @@ tight and links cleanly; this table is the front door. Sorted by the domain the 
 | Few-shot design (targeted · contrastive · matched to the gap) | D2 / D4 | this file, *§ Few-shot design* |
 | Self-critique / evaluator-optimizer (the cheap→rigorous spectrum) | D1 | [`SELF_CRITIQUE.md`](./SELF_CRITIQUE.md) |
 | Graceful degradation / error propagation (preserve value + annotate gaps; retry at the right boundary) | D1 / D5 | [`GRACEFUL_DEGRADATION.md`](./GRACEFUL_DEGRADATION.md) |
+| Hub-and-spoke (coordinator as central hub: observability + consistent errors + context control) | D1 | [`HUB_AND_SPOKE.md`](./HUB_AND_SPOKE.md) |
+| Proactive task decomposition (partition the work before delegating; redundant agents = decomposition failure) | D1 | [`TASK_DECOMPOSITION.md`](./TASK_DECOMPOSITION.md) |
+| Least privilege at the tool interface (scope the tool so misuse is impossible, not discouraged) | D2 | [`LEAST_PRIVILEGE.md`](./LEAST_PRIVILEGE.md) |
+| Compound (half-true) distractors — read every clause; absolutes are tells | all | this file, *§ Compound (half-true) distractors* |
 
 > **Placement rule** (keeps these from scattering): a write-up that explains a *specific exercise's
 > behavior* lives in that exercise's folder (e.g. `PARALLEL_TOOL_USE.md` next to Exercise 1's Case 1);
