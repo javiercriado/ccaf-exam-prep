@@ -36,6 +36,9 @@ def _err(category, retryable, description):
 
 
 def get_customer(name=None, customer_id=None, email=None):
+    # Teaching simplification: this is a LOOK-UP that the exercise treats as "verification".
+    # Real systems verify identity via an authenticated session, not a self-asserted name/ID
+    # typed in chat. We collapse the two so the D1.4 verify-before-refund gate is demonstrable.
     if customer_id:
         hit = next((c for c in _CUSTOMERS if c["id"] == customer_id), None)
         return hit or _err("validation", False, f"No customer with id {customer_id}.")
