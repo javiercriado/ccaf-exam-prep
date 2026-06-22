@@ -107,6 +107,13 @@ def run(user_message):
 
 
 if __name__ == "__main__":
+    # NOTE — teaching simplification (not the trust model of a real system):
+    # these strings ARE real Messages API user turns, but the customer *self-asserting* their
+    # name/ID ("I'm John Smith, customer C001") stands in for real identity verification. A
+    # production agent gets identity from an authenticated session, never from chat text; here
+    # get_customer doubles as look-up + "verify" so the D1.4 prereq-gate fits in one file.
+    # The gate and the lesson are real — only the "a typed name counts as verified" part is the shortcut.
+
     # Single-issue: should verify (get_customer) then lookup/refund.
     run("Hi, I'm Maria Garcia. Order 12345 arrived damaged, please refund it.")
 

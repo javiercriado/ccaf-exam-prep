@@ -6,29 +6,43 @@
 ## Study runbook (do this in order)
 
 Each step maps 1:1 to a section of [`SAMPLE_RUNS.md`](./SAMPLE_RUNS.md) (the *"Files as"* column).
-Read the **Expected result** column *before* you run — it's the specific thing each run is meant to
-prove. The anti-pattern steps are non-deterministic, so a single run proves nothing; that's why
-**Runs** says 3–5× — you run them until you *catch* the failure described.
+Read the **Expected result** column *before* you run — it's what each step is meant to teach.
 
-| Step | What to do | Runs | Expected result — what you're trying to prove | Files as |
-|---|---|---|---|---|
-| 1 | **Clean pass — change nothing.** Run it, read *"What maps to what"* (below) while it scrolls. | **1×** | All three cases behave *correctly*: parallel tools in `turn 0`, gate allows the $240 refund but escalates the $900 one, structured validation error on the ambiguous "John Smith". This is the **right** pattern for each known trap. | Experiment 0 |
-| 2 | **Experiment A — hook vs. prompt** (`ENFORCE = False`). Watch Case 2 ($900). | **3–5×** | At least one run where `turn 1` calls `process_refund({amount: 900})` instead of `escalate_to_human`. That one slip proves **prompt-only enforcement is probabilistic** — a gate would make it impossible. (distractor #2) | Experiment A |
-| 3 | **Experiment B — descriptions vs. routing** (`GOOD_DESCRIPTIONS = False`; ask "check my order 12345"). | **2–3×** | At least one run where `turn 0` misroutes the order question to `get_customer` instead of `lookup_order`. Proves **bad descriptions cause misrouting** — the fix is better descriptions, not a routing classifier. (distractor #1) | Experiment B |
-| 4 | **Experiment C — verify-first skip** (`ENFORCE = False`, give an order detail up front). | **3–5×** | A run where the model **skips `get_customer`** and goes straight to the order/refund. The skip is rare (~1 in 8), so several clean runs are expected — that rarity is the point: it's exactly why verification belongs in a gate, not a prompt. (sample Q1) | Experiment C |
-| 5 | **Bank questions** — 20–30 on D1 + D2; re-run the matching experiment on any miss. | as needed | A miss tells you which experiment to re-run; re-running until you *see* the failure cements the reflex. | — |
+> ⚠️ **Read this first — the anti-patterns are model-dependent and often DON'T reproduce.**
+> On a capable model (`claude-haiku-4-5`) with these toy inputs, every anti-pattern below behaved
+> *correctly* when run: Experiment A escalated the $900 refund **5/5** with the gate off; Experiment B
+> routed the order question correctly **without** good descriptions. That is **expected** — not a bug
+> in the exercise — and it is the real exam lesson:
+>
+> **A prompt that "usually works" is exactly why it's the wrong choice for irreversible / money
+> operations.** No number of green runs proves a 0% failure rate, and a refund can't be un-paid. So you
+> gate deterministically (`ENFORCE=True`) **regardless of how reliable the prompt looks** — "worked 5/5
+> on a toy" is not "cannot fail across millions of real refunds." Watching the prompt *behave* and
+> gating it anyway is a **stronger** lesson than watching it break. (Want to witness a slip anyway? Each
+> experiment notes how to raise the pressure — see `SAMPLE_RUNS.md`.)
 
-> **Why several runs (steps 2 & 4)?** These study *probabilistic* failure: with the gate off, the
-> prompt usually still behaves, and the bug only surfaces in a minority of runs. Running once and
-> seeing correct behavior is the trap — it "proves" the prompt works. Running 3–5× and seeing it
-> break *once* is the lesson (distractor pattern #2). **Reset the toggle to its default when done.**
+**Both toggles, every step** — the rule is *change exactly one toggle from the clean baseline per
+step*, so whatever you observe is attributable to that one change. Defaults are
+`ENFORCE = True` (`agent.py`) and `GOOD_DESCRIPTIONS = True` (`tools.py`); set them back between steps.
+
+| Step | `ENFORCE` | `GOOD_DESCRIPTIONS` | What to do | Runs | Expected result — what it teaches | Files as |
+|---|---|---|---|---|---|---|
+| 1 | `True` | `True` | **Clean pass — change nothing.** Read *"What maps to what"* (below) while it scrolls. | **1×** | All three cases behave *correctly*: parallel tools in `turn 0`, gate allows the $240 refund but escalates the $900 one, structured validation error on the ambiguous "John Smith". The **right** pattern for each known trap. | Experiment 0 |
+| 2 | **`False`** | `True` | **Experiment A — gate vs. prompt.** On the $900 case watch *two* things: does it still escalate (>$500), and does it still verify before refunding? | **3–5×** | Most likely it keeps behaving (mine: 5/5 escalated, always verified first). The point is **not** to catch a failure — it's to internalize that with the gate off *nothing guarantees* this; only `ENFORCE=True` does. The toy rarely slips; production scale eventually will. To force a visible slip, swap in the adversarial prompt in [`SAMPLE_RUNS.md`](./SAMPLE_RUNS.md#experiment-a--hook-vs-prompt--runbook-step-2-enforcefalse). (distractor #2) | Experiment A |
+| 3 | `True` | **`False`** | **Experiment B — descriptions vs. routing.** Ask "check my order 12345". | **2–3×** | Most likely it still routes to `lookup_order` — the tool *names* + schemas already disambiguate, so descriptions are redundant here. The lesson holds regardless: when tools genuinely overlap, the fix the exam rewards is **better descriptions**, not a routing classifier. (distractor #1) | Experiment B |
+| 4 | `True` | `True` | **Bank questions** — 20–30 on D1 + D2; re-read the matching experiment's framing on any miss. | as needed | A miss tells you which *principle* didn't stick — re-read that experiment, not just re-run it. | — |
+
+> **Old "Experiment C" is folded into A.** The verify-before-refund skip shares Experiment A's exact
+> toggle state (`ENFORCE=False`) — it's the same run, just a second thing to watch (does it call
+> `get_customer` *before* the refund?). Like the escalation, it rarely slips on this toy: same lesson,
+> same gate. **Reset both toggles to their defaults (`ENFORCE = True`, `GOOD_DESCRIPTIONS = True`) when done.**
 
 ### How to record a run (so it lands in `SAMPLE_RUNS.md`)
 Paste me the output and say **which step number** it's from (e.g. "step 2, run 3"). I file it
 under that step's section, label it `Run 1 / Run 2 / …`, and tag whether it showed the **correct**
 path or the **anti-pattern** — so the variation across runs is visible at a glance. Minimum I need:
 the `USER:` line (it shows the toggle state) and the `turn` lines for the case that matters —
-**Case 2 ($900)** for A, the **order question** for B, **Case 1 (Maria)** for C.
+**Case 2 ($900)** for A, the **order question** for B.
 
 Track *your* exam progress and misses in `ccaf-prep/personal/exam_log.md`, not here.
 
@@ -38,8 +52,11 @@ Track *your* exam progress and misses in `ccaf-prep/personal/exam_log.md`, not h
 
 ## Run
 ```bash
-# from this folder — uv finds ../pyproject.toml and uses the ccaf-prep env.
-# the script self-loads ../../claude-with-anthropic-api/.env, so no export step is needed.
+# from the repo root, cd into this exercise folder first:
+cd ccaf-prep/exercises/01-support-agent
+
+# uv finds ../pyproject.toml and uses the ccaf-prep env; the script self-loads the
+# repo-root .env via find_dotenv, so no export step is needed.
 uv run python agent.py
 ```
 (If `claude-sonnet-4-6` isn't available on your key, set `CLAUDE_MODEL` in the `.env`, or
@@ -58,21 +75,33 @@ change `MODEL` in `agent.py`.)
 | "2 customers named John Smith → ask for an identifier" | **D5.2** multi-match, don't guess |
 | escalation carries a full `handoff_summary` | **D1.4** structured handoff |
 
-## The 3 anti-pattern experiments (the real learning)
+> **One simplification to keep straight:** the test messages ("I'm John Smith, customer C001")
+> are *real* Messages API user turns — that part isn't faked. What's simplified is the **trust
+> model**: a real agent never treats a self-asserted name/ID from chat as proof of identity (it
+> uses an authenticated session). Here `get_customer` is a look-up doubling as "verification" so
+> the **D1.4 verify-before-refund gate** is demonstrable in one file. The gate is the real lesson;
+> "a typed name counts as verified" is the shortcut.
 
-1. **Hook vs. prompt (Q1).** Set `ENFORCE = False` in `agent.py`, rerun the $900 case a
-   few times. The SYSTEM prompt still says "refunds over $500 must be escalated," but with
-   no gate the model will sometimes call `process_refund` anyway. → *Prompt = probabilistic,
-   gate = deterministic.* This is distractor pattern #2.
+## The anti-pattern experiments (the real learning)
 
-2. **Descriptions vs. routing (Q2).** Set `GOOD_DESCRIPTIONS = False` in `tools.py`, ask an
-   order question ("check my order 12345"). With minimal descriptions the model misroutes to
-   `get_customer`. The fix the exam rewards is *better descriptions* — not a routing
-   classifier (distractor pattern #1).
+> These teach a **principle**, not a guaranteed failure. On a capable model + toy input the
+> anti-pattern usually *won't* reproduce — and that's the point (see the ⚠️ box up top). The exam
+> rewards choosing the deterministic option *regardless* of how well the prompt happens to behave.
 
-3. **Verify-first skip.** With `ENFORCE = False`, give it an order detail up front
-   ("refund order 12345 for Maria"). Watch whether it skips `get_customer`. That 12%-skip
-   behavior is exactly the failure in sample Q1.
+1. **Gate vs. prompt (Q1).** Set `ENFORCE = False` in `agent.py`, rerun the $900 case. The SYSTEM
+   prompt still says "refunds over $500 must be escalated" and "verify before any refund" — but with
+   no gate, nothing *guarantees* the model obeys. On a capable model it almost always behaves (mine:
+   5/5 escalated, always verified first), so to actually see a slip, raise the pressure with the
+   adversarial prompt in `SAMPLE_RUNS.md`. → *Prompt = probabilistic even when it usually works; gate
+   = deterministic.* For irreversible/money operations you pick the gate **because** "usually works"
+   can't be promised. That gap is distractor pattern #2. (This also covers the old "verify-first
+   skip" — same `ENFORCE=False` state, a second thing to watch.)
+
+2. **Descriptions vs. routing (Q2).** Set `GOOD_DESCRIPTIONS = False` in `tools.py`, ask an order
+   question ("check my order 12345"). On a capable model it usually still routes correctly — the tool
+   *names* (`get_customer` vs `lookup_order`) and schemas disambiguate on their own. Descriptions
+   matter most when tools genuinely overlap; even then the fix the exam rewards is *better
+   descriptions*, not a routing classifier (distractor pattern #1).
 
 ## After this exercise
 Do **20–30 bank questions on D1 + D2**. If you miss a pattern, come back and rerun the
