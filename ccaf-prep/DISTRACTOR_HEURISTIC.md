@@ -142,12 +142,15 @@ lazy loading. Conditional loading is `.claude/rules/`, below.)
 **2 · `/memory` lists CLAUDE.md files; it does *not* show rules — use `/context`. And rules load on
 READ, not write.** "Verify the rule loaded with `/memory`" is a double-false signal:
 
-- `/memory` only lists/edits the **CLAUDE.md** memory stack (user + project). It never shows
-  `.claude/rules/` files or an `@import` expansion. The window inspector that *does* is **`/context`**.
+- `/memory` only lists/edits the **CLAUDE.md** memory stack (user + project). `/context` additionally
+  shows the **always-loaded** content — the CLAUDE.md stack *plus* `@import` expansions — **but not**
+  path-scoped rules.
 - A path-scoped rule (`paths:` globs) loads when Claude **reads** a matching file
-  (`load_reason=path_glob_match`) — **not** when it merely *writes/creates* one. So "create a
-  `*.test.*` file, then run `/memory`" shows nothing on *both* counts — which reads as "the feature
-  doesn't work" when it does.
+  (`load_reason=path_glob_match`) — **not** when it merely *writes/creates* one — and it rides in as a
+  **transient system-reminder**, so it shows in *neither* `/memory` nor `/context`. Observe it via the
+  `InstructionsLoaded` hook (below) or by Claude **quoting the convention** in the same turn. So "create
+  a `*.test.*` file, then run `/memory` or `/context`" shows nothing — which reads as "the feature
+  doesn't work" when it does (verified on Claude Code 2.1.x).
 
 **The load model, named once — the `InstructionsLoaded` hook's `load_reason` enum.** This
 observability-only hook fires whenever an instruction file enters context, and its reasons *are* the
@@ -183,7 +186,7 @@ tight and links cleanly; this table is the front door. Sorted by the domain the 
 | Proactive task decomposition (partition the work before delegating; redundant agents = decomposition failure) | D1 | [`TASK_DECOMPOSITION.md`](./TASK_DECOMPOSITION.md) |
 | Least privilege at the tool interface (scope the tool so misuse is impossible, not discouraged) | D2 | [`LEAST_PRIVILEGE.md`](./LEAST_PRIVILEGE.md) |
 | `@`-import is a bare `@path`, not `@import <path>` (eager; the keyword `import` is the invented part) | D3.1 | this file, *§ Claude Code config — directives & inspectors* |
-| `/memory` shows CLAUDE.md files only; rules need `/context` + load on **Read** (`InstructionsLoaded` `load_reason`) | D3.1 / 3.3 | this file, *§ Claude Code config — directives & inspectors* |
+| `/memory` + `/context` show only the always-loaded CLAUDE.md/`@import` stack; path-rules are **transient** (load on **Read**) — observe via the `InstructionsLoaded` hook or Claude's behaviour | D3.1 / 3.3 | this file, *§ Claude Code config — directives & inspectors* |
 | Compound (half-true) distractors — read every clause; absolutes are tells | all | this file, *§ Compound (half-true) distractors* |
 
 > **Placement rule** (keeps these from scattering): a write-up that explains a *specific exercise's
