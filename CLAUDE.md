@@ -44,6 +44,6 @@ Claude API calls** (Messages API or Claude Agent SDK), mapped 1:1 to the officia
     new shareable concept doc there (sorted by domain). Don't consolidate into one big file or file per domain.
 
 ## Status (verify against `README.md`'s table before relying)
-- Notebooks: **D1 ✅, D2 ✅, D5 ✅** hand-validated; **D3 🧪** built/generated, not yet hand-reviewed; **D4 ⏳** not built.
+- Notebooks: **D1 ✅, D2 ✅, D5 ✅** hand-validated; **D3 🔧** in progress (hand-review underway); **D4 ⏳** not built.
 - Exercises: **01 ✅ hand-reviewed**; **02–05 🧪 built and runnable, not yet hand-reviewed**.
 - Study/build order is dependency-driven: **D1 → D2 → D5 → D3 → D4**.
