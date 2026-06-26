@@ -13,7 +13,7 @@ not pure exam weight.
 | 1 | `D1_agentic_loops.ipynb`      | D1 · Agentic Architecture & Orchestration (27%) | ✅ built |
 | 2 | `D2_tool_design_mcp.ipynb`    | D2 · Tool Design & MCP Integration (18%)        | ✅ built |
 | 3 | `D5_context_reliability.ipynb`| D5 · Context Management & Reliability (15%)     | ✅ built |
-| 4 | `D3_claude_code_config.ipynb` | D3 · Claude Code Configuration & Workflows (20%)| 🧪 built (generated) |
+| 4 | `D3_claude_code_config.ipynb` | D3 · Claude Code Configuration & Workflows (20%)| 🔧 in progress (hand-review) |
 | 5 | `D4_*.ipynb`                  | D4 · Prompt Engineering & Structured Output (20%)| ⏳ to build |
 
 Run every code cell. Each notebook ends with its **sample exam questions** (answers hidden)
