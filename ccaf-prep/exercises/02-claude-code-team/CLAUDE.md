@@ -13,15 +13,18 @@
   rules live in someone's USER-level file instead of here. Team rules MUST be project-scoped.
   Run /memory in Claude Code to see exactly which memory files are currently loaded.
 
-  @import keeps this file modular: the line below pulls in team-conventions.md so this file
-  stays a thin index instead of a monolith.
+  The @-import below keeps this file modular: `@team-conventions.md` pulls that file in so this
+  one stays a thin index instead of a monolith. NOTE the exact directive — a BARE `@path`
+  (`@team-conventions.md`), NOT `@import team-conventions.md`. The guide names it "the @import
+  syntax", but writing the word "import" makes Claude look for a file literally named `import`
+  and silently load nothing (verified against Claude Code 2.1.x).
 -->
 
 # Project memory — CCAF EX2 (Claude Code team config)
 
 This is a configuration-only exercise: a realistic shared `.claude/` setup for a team repo.
 
-@import ./team-conventions.md
+@team-conventions.md
 
 ## Always-loaded standards (universal, vs. on-demand skills)
 
