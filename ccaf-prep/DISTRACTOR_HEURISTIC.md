@@ -123,6 +123,47 @@ half and accept the whole — that's the trap. Defense:
 > exclusivity or a wrong "main advantage." Only the option true in *every* clause — and naming the real
 > primary benefit — wins. See [`HUB_AND_SPOKE.md`](./HUB_AND_SPOKE.md).
 
+## Claude Code config — directives & inspectors that *look* right (D3.1 / D3.3)
+
+Two D3 traps are pure **Axis A — "does it actually exist?"**: a directive and an inspector command
+that *look* native but quietly do the wrong thing. Both were confirmed by running Claude Code 2.1.x
+with the `InstructionsLoaded` hook (below), not from the docs alone.
+
+**1 · The import directive is a bare `@path` — not `@import <path>`.** The exam guide *names* the
+feature "the @import syntax," so `@import ./team-conventions.md` reads as correct. It isn't: Claude
+takes the token right after `@` as the path, so `@import …` tries to import a file literally named
+`import`, finds none, and **silently loads nothing**. The working directive is the bare path —
+`@team-conventions.md` (also `@./team-conventions.md`, `@~/std.md`, or absolute; a relative path
+resolves against the *importing* file). Verified: the bare form fires `load_reason=include`; the
+`@import <path>` form fires nothing. The invented word `import` is the Axis-A bait bolted onto a real
+feature. (And `@`-import is **eager** — expanded at launch like inlining; it buys *modularity*, not
+lazy loading. Conditional loading is `.claude/rules/`, below.)
+
+**2 · `/memory` lists CLAUDE.md files; it does *not* show rules — use `/context`. And rules load on
+READ, not write.** "Verify the rule loaded with `/memory`" is a double-false signal:
+
+- `/memory` only lists/edits the **CLAUDE.md** memory stack (user + project). It never shows
+  `.claude/rules/` files or an `@import` expansion. The window inspector that *does* is **`/context`**.
+- A path-scoped rule (`paths:` globs) loads when Claude **reads** a matching file
+  (`load_reason=path_glob_match`) — **not** when it merely *writes/creates* one. So "create a
+  `*.test.*` file, then run `/memory`" shows nothing on *both* counts — which reads as "the feature
+  doesn't work" when it does.
+
+**The load model, named once — the `InstructionsLoaded` hook's `load_reason` enum.** This
+observability-only hook fires whenever an instruction file enters context, and its reasons *are* the
+whole hierarchy:
+
+| `load_reason` | what loaded | when |
+|---|---|---|
+| `session_start` | user `CLAUDE.md` + cwd-and-parents `CLAUDE.md` | eagerly, at launch |
+| `nested_traversal` | a **subdirectory** `CLAUDE.md` *below* cwd | when Claude reads a file in that subtree |
+| `path_glob_match` | a `.claude/rules/` file whose `paths:` glob matched | when Claude reads a matching file |
+| `include` | an `@path` import target | eagerly, with its parent (≤ 4 hops) |
+| `compact` | reload after compaction | post-compaction |
+
+Proof-rig (drop into `.claude/settings.json`, read a matching file, watch the log):
+`{"hooks":{"InstructionsLoaded":[{"hooks":[{"type":"command","command":"cat >> /tmp/rule-loads.jsonl"}]}]}}`
+
 ---
 
 ## Concept deep-dives (index)
@@ -141,6 +182,8 @@ tight and links cleanly; this table is the front door. Sorted by the domain the 
 | Hub-and-spoke (coordinator as central hub: observability + consistent errors + context control) | D1 | [`HUB_AND_SPOKE.md`](./HUB_AND_SPOKE.md) |
 | Proactive task decomposition (partition the work before delegating; redundant agents = decomposition failure) | D1 | [`TASK_DECOMPOSITION.md`](./TASK_DECOMPOSITION.md) |
 | Least privilege at the tool interface (scope the tool so misuse is impossible, not discouraged) | D2 | [`LEAST_PRIVILEGE.md`](./LEAST_PRIVILEGE.md) |
+| `@`-import is a bare `@path`, not `@import <path>` (eager; the keyword `import` is the invented part) | D3.1 | this file, *§ Claude Code config — directives & inspectors* |
+| `/memory` shows CLAUDE.md files only; rules need `/context` + load on **Read** (`InstructionsLoaded` `load_reason`) | D3.1 / 3.3 | this file, *§ Claude Code config — directives & inspectors* |
 | Compound (half-true) distractors — read every clause; absolutes are tells | all | this file, *§ Compound (half-true) distractors* |
 
 > **Placement rule** (keeps these from scattering): a write-up that explains a *specific exercise's
