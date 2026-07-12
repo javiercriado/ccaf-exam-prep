@@ -69,6 +69,10 @@ you just finished:
 ## 4. At the very end
 
 Once all 5 notebooks and all 5 exercises are done, work through
-`mock_exam_and_review.ipynb` end-to-end: the **scenario-grouped mock** (Part D), confirm
-Part A coverage is fully ticked, then sit the official **Practice Exam** (Skilljar) under
-timed conditions.
+`mock_exam_and_review.ipynb` end-to-end: the **scenario-grouped mock** (Part D, the 12 official
+sample questions) and confirm Part A coverage is fully ticked.
+
+Then sit [`practice_exam_A.ipynb`](./practice_exam_A.ipynb) — a **33-question, all-6-scenario
+simulacrum** of original items (mix of single-answer and Select-2), under timed conditions. It
+replaces the retired Skilljar practice exam. The live exam is now delivered via **Pearson VUE**;
+see [`../CERT_ROADMAP.md`](../CERT_ROADMAP.md) for the cross-exam strategy.

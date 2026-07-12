@@ -13,7 +13,9 @@ __pycache__/
 **/.DS_Store
 
 # Personal study progress & private notes (keep your own; don't publish)
+# These hold the full verbatim (official sample questions + task statements) for local study.
 *.personal.ipynb
+*.personal.md
 personal/
 
 # Claude Code local settings (machine-specific paths; never publish)
@@ -30,4 +32,7 @@ claude-with-anthropic-api/uigen/src/generated/
 # Ignore everything under reference/ (guide text, course catalog) except its README.
 ccaf-prep/reference/*
 !ccaf-prep/reference/README.md
-*Foundations*Exam*Guide*.pdf
+# All exam guides (Foundations AND Professional, any product), plus program policy/T&C PDFs.
+*Exam*Guide*.pdf
+*Certification_Exam_Policy*.pdf
+*Certification_Terms_and_Conditions*.pdf

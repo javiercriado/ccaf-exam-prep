@@ -16,8 +16,10 @@ Supersedes `../Mi_Plan_Estudio_CCAF.md` (kept for reference). Read order:
 ## Exam facts (memorize)
 - 60 questions, 120 min, 4 of 6 scenarios chosen at random.
 - Pass = **720/1000** scaled. No penalty for guessing → **never leave blanks**.
-- All multiple-choice, 1 correct + 3 distractors.
+- **Mix of multiple-choice and multiple-response** — each item states how many to select. No partial
+  credit on Select-2 (need all correct, no extras). Delivered via **Pearson VUE** (not Skilljar).
 - Weights: **D1 27% · D3 20% · D4 20% · D2 18% · D5 15%**.
+- Retake waits 14 / 30 / 90 days, up to 4 attempts / rolling 12 mo. See `../CERT_ROADMAP.md`.
 
 ---
 
@@ -55,9 +57,11 @@ Each exercise folder has a `README.md` with: the build steps, the **task-stateme
 tags** on each part, how to run, and the **anti-pattern experiments** to try.
 
 ## Phase C — Validation (2–3 days)
-1. Official **Practice Exam** under real conditions: 120 min timed, no notes, no extra material.
+1. `notebooks/practice_exam_A.ipynb` — our **33-question, all-6-scenario simulacrum** (single-answer
+   + Select-2), under real conditions: timed, no notes, no extra material. (Replaces the retired
+   Skilljar practice exam.)
 2. For every miss: find the Task Statement in `MAPPING.md`, re-read it, note which
-   distractor pattern fooled you.
+   distractor pattern fooled you (each answer's `Tag:` line names it).
 3. Time permitting: 100–150 bank questions for distractor-recognition reps.
 
 ## Phase D — Day before
