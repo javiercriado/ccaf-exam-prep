@@ -52,12 +52,12 @@
 
 | Task | What it really means | Concrete anchor | Sample Q | Distractor pattern |
 |---|---|---|---|---|
-| 4.1 Explicit criteria | Specific categorical criteria > "be conservative"; false positives erode trust | `EX5` review criteria; `EX1` escalation criteria | **Q3** (explicit escalation criteria) | #5 sentiment/confidence proxy |
-| 4.2 Few-shot | Most effective for consistent format + ambiguous-case judgment + extraction | `EX3` few-shot; `EX1` escalation examples | — | detailed instructions alone |
-| 4.3 Structured output via tool_use | tool_use + JSON schema = no syntax errors (not semantic); `tool_choice` auto/any/forced; nullable fields | `EX3/extract.py` schema + tool_choice | — | strict schema fixes semantics (false) |
-| 4.4 Validation / retry | Append validation errors on retry; retry useless if info absent; semantic vs syntax errors | `EX3` validation-retry loop | — | retry when info simply absent |
-| 4.5 Batch processing | Batches API: 50% off, ≤24h, no SLA, no multi-turn tools; `custom_id`; not for blocking | `EX5` notes (sync for pre-merge) | **Q11** (batch reports only) | switch blocking checks to batch |
-| 4.6 Multi-pass review | Self-review weak (retains reasoning); independent instance; per-file + integration passes | `EX5` independent reviewer; `EX1` | **Q12** | #1 bigger context window |
+| 4.1 Explicit criteria | Specific categorical criteria > "be conservative"; false positives erode trust | **`notebooks/D4_prompt_structured_output.ipynb` §4.1** (real A/B: vague vs report-list + skip-list + severity rubric); `EX5/review.py:88-96` `CRITERIA`, `:125-129` `CRITERIA_BLOCK`; `EX1/agent.py:36-42` escalation criteria | **Q3** (explicit escalation criteria) | #5 sentiment/confidence proxy |
+| 4.2 Few-shot | Most effective for consistent format + ambiguous-case judgment + extraction | **`notebooks/D4_prompt_structured_output.ipynb` §4.2** (real A/B ×2 runs: acceptable-pattern FP + generalization to an undemonstrated variant); `EX3/extract.py:111-133` `FEW_SHOT_TURNS` | — | detailed instructions alone |
+| 4.3 Structured output via tool_use | tool_use + JSON schema = no syntax errors (not semantic); `tool_choice` auto/any/forced; nullable fields | **`notebooks/D4_prompt_structured_output.ipynb` §4.3** (all 3 tool_choice modes live; nullable `po_number` → null; enum `other`/`unclear`; planted 195≠205 semantic error) ; `EX3/extract.py:66-99` schema, `:194-205` forced | — | strict schema fixes semantics (false) |
+| 4.4 Validation / retry | Append validation errors on retry; retry useless if info absent; semantic vs syntax errors | **`notebooks/D4_prompt_structured_output.ipynb` §4.4** (real: `calculated_total`/`conflict_detected`; retry-with-feedback fixes format; 2 retries CANNOT conjure an absent PO); `EX3/extract.py:163-179` `validate`, `:213-228` retry | — | retry when info simply absent |
+| 4.5 Batch processing | Batches API: 50% off, ≤24h, no SLA, no multi-turn tools; `custom_id`; not for blocking | **`notebooks/D4_prompt_structured_output.ipynb` §4.5** (a REAL `messages.batches` submit + poll + `custom_id` correlation; `stop_reason=tool_use` ⇒ no multi-turn); `EX5/ci_review.sh` (sync gate); `EX5/README.md:98-101,108-110` | **Q11** (batch reports only) | switch blocking checks to batch |
+| 4.6 Multi-pass review | Self-review weak (retains reasoning); independent instance; per-file + integration passes | **`notebooks/D4_prompt_structured_output.ipynb` §4.6** (single-variable A/B: author's rationale in context vs fresh; per-file + integration passes; confidence ROUTES); `EX5/review.py:132-149,152-182`; `EX5/review.py:185-199` monolith anti-pattern | **Q12** | #1 bigger context window |
 
 ## Domain 5 — Context Management & Reliability (15%)
 
