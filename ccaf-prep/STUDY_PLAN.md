@@ -75,8 +75,9 @@ Light review of the **5 distractor patterns only** (see `ANALYSIS.md`). Rest. No
 - Answer every question (no guess penalty).
 
 ## Resources
-- `reference/exam_guide.txt` — full guide text (extracted from the PDF).
+- `reference/exam_guide.txt` — full guide text (extracted from the PDF; **v1.0 · Effective July 2026 · CCAR-F**).
 - `reference/course_catalog.txt` — Academy catalog.
-- `../Claude_..._Exam_Guide.pdf` — original PDF (authoritative, v0.1 Feb 2025).
+- The official PDF is the authoritative source: **v1.0 · Effective July 2026 · exam code CCAR-F**
+  (content unchanged vs v0.1 Feb 2025 — v1.0 only added multi-response items + logistics).
 - docs.anthropic.com — Agent SDK / Claude Code / MCP / Claude API reference.
 - 618-question bank + third-party sites — secondary recognition practice only.

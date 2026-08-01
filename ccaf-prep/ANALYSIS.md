@@ -77,7 +77,9 @@ All 6 scenarios covered.
    questions is an instance: Q1=hook-not-prompt, Q2=descriptions-not-routing,
    Q3=criteria-not-sentiment, Q5=plan-mode, Q10=nonexistent-flag, Q11=batch-not-blocking,
    Q12=split-passes-not-bigger-model. The hands-on exists to make those reflexes physical.
-4. The guide is **v0.1 (Feb 2025)** — the only authoritative source. Everything else
+4. The guide is **v1.0 (Effective July 2026, exam code CCAR-F)** — the only authoritative source.
+   (Content is identical to v0.1/v0.2 — same domains, task statements, and sample questions — so this
+   analysis still holds; v1.0 only added multi-response items + logistics.) Everything else
    (618-question banks, third-party sites) is secondary recognition practice.
 
 ## The 5 distractor patterns (the meta-skill)

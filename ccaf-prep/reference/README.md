@@ -11,6 +11,9 @@ download the official guide from Anthropic and save its text here:
   Certification Exam Guide* (download the PDF from Anthropic and export/copy its text).
   The [`ccaf-notebook` skill](../../.claude/skills/ccaf-notebook/SKILL.md) reads this file as
   its source of truth (verbatim task statements, the 12 sample questions).
+  Current version: **v1.0 · Effective July 2026 · exam code CCAR-F** (content is unchanged from
+  the earlier v0.1/v0.2 — same domains, task statements, and sample questions; v1.0 added
+  multiple-response items and the logistics table).
 
 You can also drop the Anthropic Academy **`course_catalog.txt`** here if you find it useful.
 
