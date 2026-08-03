@@ -67,12 +67,22 @@ tags** on each part, how to run, and the **anti-pattern experiments** to try.
 ## Phase D — Day before
 Light review of the **5 distractor patterns only** (see `ANALYSIS.md`). Rest. Nothing new.
 
+## Phase E — Right after you pass (days, not months)
+Do **not** let the material go cold before starting the next credential. Re-reviewing
+already-studied domains after a ~2-month gap cost several hours across several days on this
+exam — the single most avoidable expense in the whole kit. Within days of passing, run the
+**delta-first** workflow in [`CERT_ROADMAP.md`](./CERT_ROADMAP.md): drop the new exam guide into
+`reference/`, gap-analyse its task statements against the existing D1–D5 notebooks
+(covered / partial / new), and build only the **new** rows. Freshness is the asset, and it is
+perishable.
+
 ---
 
 ## Day-of rules
-- No notes / second monitor. Assume strict proctoring (camera + screen share);
-  confirm exact rules in the Skilljar email.
-- Answer every question (no guess penalty).
+- No notes / second monitor. Assume strict proctoring (camera + screen share); confirm the exact
+  rules in the **Pearson VUE** confirmation email (the exams moved off Skilljar in July 2026).
+- No guess penalty — and the platform **requires an answer before it lets you advance**, so you
+  cannot leave one blank and circle back. Lock a best guess first, *then* mark for review.
 
 ## Resources
 - `reference/exam_guide.txt` — full guide text (extracted from the PDF; **v1.0 · Effective July 2026 · CCAR-F**).

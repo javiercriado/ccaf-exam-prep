@@ -74,6 +74,42 @@ Memory, connectors like Drive/Gmail), **output evaluation/validation**, **model 
 cost/speed**, and **responsible-use judgment** (data sensitivity, appropriate use cases, escalation).
 Little code; heavy on judgment and governance.
 
+## How to start the *next* exam: delta first, never re-study covered ground
+
+Learned the expensive way on CCAR-F: after a ~2-month gap, **re-reviewing already-studied material
+cost several hours across several days.** Knowledge decays, and re-reading a notebook you once knew
+is the lowest-value work in the whole kit. So the next credential does **not** start with studying —
+it starts with finding out what is genuinely new, while the previous exam is still fresh.
+
+**Step 0 — do this within days of passing, not months later.** Freshness is the asset; it is also
+perishable. Every week of delay converts "delta study" back into "full re-study."
+
+1. **Drop the new guide into [`reference/`](./reference/)** as `exam_guide_<CODE>.txt` (git-ignored;
+   Anthropic's material is never redistributed — see that folder's README).
+2. **Run a task-statement gap analysis.** Take every task statement in the new guide and mark it
+   against the existing D1–D5 notebooks:
+   - **covered** — an existing notebook section already teaches it → do not rebuild; just add a
+     cross-reference row in the new `MAPPING`.
+   - **partial** — the mechanism is covered but the new exam pitches it higher (e.g. CCAR-P asks you
+     to *evaluate/justify* what CCAR-F asked you to *apply*) → extend the existing section with a
+     trade-off/judgment cell rather than writing a new notebook.
+   - **new** — nothing in the kit touches it → this is the only row that earns a new notebook.
+   The output of this pass **is** the study plan. Nothing else gets built.
+3. **Build only the "new" rows**, using the unchanged authoring standard in
+   [`.claude/skills/ccaf-notebook/SKILL.md`](../.claude/skills/ccaf-notebook/SKILL.md).
+4. **Reuse the exam machinery as-is.** [`notebooks/examkit.py`](./notebooks/examkit.py) parses
+   questions *and* the answer key out of a notebook's own hidden `<!--ANSWER-->` blocks, so a
+   `practice_exam_B.ipynb` for another credential needs no runner changes — only new questions.
+   When you write them, **balance the key**: the first draft of Form A was 54% A and never D or E,
+   so "always mark A" scored 13/33 without reading a word. Spread the correct letter evenly, vary
+   the Select-2 pairs, and shuffle rather than cycle. Keep your filled-in attempt in
+   `*.personal.ipynb` (git-ignored) so the tracked notebook stays blank.
+
+**Repo shape — decide before building, not after.** This kit is currently laid out for a single
+exam (`ccaf-prep/`). A second credential probably wants per-cert folders over a shared core
+(notebooks/exercises that both reuse, one `MAPPING` per exam). Make that call *before* the second
+set of notebooks exists, or the restructure gets paid for twice.
+
 ## Prep principle that carries across all four
 Every one of these exams is **scenario-based and tests judgment, not recall** — "your system fails
 this way; which fix is correct?" The single most transferable rule: **"code must, prompt should"** — a

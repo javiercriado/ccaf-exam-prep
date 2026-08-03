@@ -17,5 +17,10 @@ download the official guide from Anthropic and save its text here:
 
 You can also drop the Anthropic Academy **`course_catalog.txt`** here if you find it useful.
 
+**Preparing another credential?** Save its guide alongside, named by exam code —
+`exam_guide_CCAR-P.txt`, `exam_guide_CCDV-F.txt`, `exam_guide_CCAO-F.txt`. The gap-analysis step
+in [`../CERT_ROADMAP.md`](../CERT_ROADMAP.md) reads the new guide against the existing D1–D5
+notebooks so you only build what is genuinely new.
+
 > These files are Anthropic's intellectual property — keep your local copies private; don't
 > commit them.
