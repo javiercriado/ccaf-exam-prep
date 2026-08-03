@@ -76,3 +76,11 @@ Then sit [`practice_exam_A.ipynb`](./practice_exam_A.ipynb) — a **33-question,
 simulacrum** of original items (mix of single-answer and Select-2), under timed conditions. It
 replaces the retired Skilljar practice exam. The live exam is now delivered via **Pearson VUE**;
 see [`../CERT_ROADMAP.md`](../CERT_ROADMAP.md) for the cross-exam strategy.
+
+The exam runs itself: [`examkit.py`](./examkit.py) (stdlib only, no extra deps) provides a clock
+that survives a kernel restart, one answer cell per question (`ex.answer(Q1="B")`, and
+`"A, C"` / `"AC"` both work for Select-2), and `ex.grade()` — score plus breakdowns by scenario,
+domain and question type, revealing the rationale only for the ones you missed. Questions and the
+answer key are parsed out of the notebook's own hidden `<!--ANSWER-->` blocks, so editing a
+question needs no change here. Your attempt is written to `personal/` (git-ignored); keep your
+filled-in copy as `practice_exam_A.personal.ipynb` so the tracked notebook stays blank.
