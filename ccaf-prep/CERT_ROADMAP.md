@@ -59,6 +59,14 @@ exercises for what's new and pitched at analyze/justify level:
   accuracy-latency trade-offs, capability-bloat evaluation.
 
 ### CCDV-F — Developer – Foundations (breadth)
+
+> **Measured against the real blueprint (2026-08-02): coverage is ~44%, not the ~60–70% estimated
+> below before anyone had read the guide** — ~56% if generic SW-engineering fundamentals you
+> already know are counted. Claude Code, worth 20% on CCAR-F, is **3.1%** here; the two domains
+> carrying half the exam (Applications & Integration 33.1%, Model Selection & Optimization 16.8%)
+> are ones this kit never had to build. Full skill-by-skill breakdown, still pending validation:
+> **[`GAP_ANALYSIS_CCDV-F.md`](./GAP_ANALYSIS_CCDV-F.md)**.
+
 Keep the agents/tools/MCP/Claude-Code/prompt/context material. **Add**:
 - **Claude API mechanics** — messages, streaming, vision, thinking, caching, batch vs realtime.
 - **Software-engineering foundations** — REST/JSON, async, version control, SDLC, refactoring.
